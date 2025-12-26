@@ -2,195 +2,187 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Infinka GiftVerse — Living Core</title>
+<title>Infinka GiftVerse — Living Organism</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 html, body {
   margin: 0;
-  height: 100%;
-  background: #0e050b;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #1a070f 0%, #0e050b 70%);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  overflow: hidden;
   font-family: "Georgia", serif;
+  overflow-x: hidden;
 }
 
+/* ===== SCENE WRAPPER ===== */
+.scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 32px;
+}
+
+/* ===== CONTENT ZONE ===== */
+#petal-content {
+  max-width: 620px;
+  margin-top: 12px;
+  text-align: center;
+  color: #EED7C3;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+  pointer-events: none;
+}
+
+#petal-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+#petal-content h2 {
+  font-size: 24px;
+  margin-bottom: 14px;
+  letter-spacing: 1.6px;
+  color: #E6B97E;
+}
+
+#petal-content p {
+  font-size: 16px;
+  line-height: 1.8;
+  opacity: 0.88;
+}
+
+/* ===== SVG BEHAVIOR ===== */
 :root {
   --heart-duration: 12s;
+  --orbit-strength: 0.6deg;
+  --calm-orbit-strength: 0.25deg;
+}
+
+svg {
+  overflow: visible;
+}
+
+.petal-orbit {
+  transform-origin: 250px 250px;
+  animation: orbitalSway var(--heart-duration) ease-in-out infinite;
+}
+
+.petal-body {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation:
+    petalOpen 4.5s ease-out forwards,
+    petalBreathe 12s ease-in-out infinite;
+  cursor: pointer;
+}
+
+/* Opening delays */
+.p1 { animation-delay: 0s, 5s; }
+.p2 { animation-delay: 0.6s, 5.6s; }
+.p3 { animation-delay: 1.2s, 6.2s; }
+.p4 { animation-delay: 1.8s, 6.8s; }
+.p5 { animation-delay: 2.4s, 7.4s; }
+.p6 { animation-delay: 3s, 8s; }
+.p7 { animation-delay: 3.6s, 8.6s; }
+.p8 { animation-delay: 4.2s, 9.2s; }
+
+/* Motion */
+@keyframes petalOpen {
+  0%   { transform: scale(0.88); opacity: 0; }
+  60%  { transform: scale(1.04); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes petalBreathe {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.012); }
+  100% { transform: scale(1); }
+}
+
+@keyframes orbitalSway {
+  0%   { transform: rotate(var(--base-angle)); }
+  20%  { transform: rotate(calc(var(--base-angle) + var(--orbit-strength))); }
+  40%  { transform: rotate(var(--base-angle)); }
+  100% { transform: rotate(var(--base-angle)); }
+}
+
+/* CALM STATE after focus */
+body.calm .petal-orbit {
+  animation-duration: 18s;
+}
+
+body.calm {
+  --orbit-strength: var(--calm-orbit-strength);
+}
+
+/* Text */
+.petal-text {
+  fill: #2A0F1F;
+  font-size: 13px;
+  letter-spacing: 1.3px;
+}
+
+/* Heart */
+.heart {
+  transform-origin: 250px 250px;
+  animation: heartBeat var(--heart-duration) ease-in-out infinite;
+  animation-delay: 5s;
+}
+
+@keyframes heartBeat {
+  0%   { transform: scale(1); }
+  12%  { transform: scale(1.035); }
+  24%  { transform: scale(0.99); }
+  36%  { transform: scale(1.02); }
+  100% { transform: scale(1); }
 }
 </style>
 </head>
 
 <body>
 
-<svg width="520" height="520" viewBox="0 0 500 500"
-     xmlns="http://www.w3.org/2000/svg">
+<div class="scene">
 
-<defs>
+<!-- ===== YOUR EXISTING SVG GOES HERE (UNCHANGED STRUCTURE) ===== -->
+<!-- (Petals must have data-title & data-body attributes as discussed) -->
 
-  <!-- Glow -->
-  <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
-    <feGaussianBlur stdDeviation="8" result="blur"/>
-    <feMerge>
-      <feMergeNode in="blur"/>
-      <feMergeNode in="SourceGraphic"/>
-    </feMerge>
-  </filter>
+<!-- ===== CONTENT EXPANSION ===== -->
+<div id="petal-content">
+  <h2 id="content-title"></h2>
+  <p id="content-body"></p>
+</div>
 
-  <!-- Petal Gradients -->
-  <radialGradient id="petalGrad" cx="50%" cy="35%" r="70%">
-    <stop offset="0%" stop-color="#F4E1CF"/>
-    <stop offset="55%" stop-color="#E8B8A8"/>
-    <stop offset="100%" stop-color="#C97A86"/>
-  </radialGradient>
+</div>
 
-  <radialGradient id="petalEdge">
-    <stop offset="60%" stop-color="#000" stop-opacity="0"/>
-    <stop offset="100%" stop-color="#000" stop-opacity="0.18"/>
-  </radialGradient>
+<script>
+const petals = document.querySelectorAll('.petal-body');
+const contentBox = document.getElementById('petal-content');
+const titleEl = document.getElementById('content-title');
+const bodyEl = document.getElementById('content-body');
 
-  <!-- Petal Shape -->
-  <path id="petalShape" d="
-    M250 88
-    C300 122, 330 165, 320 205
-    C310 235, 280 255, 250 265
-    C220 255, 190 235, 180 205
-    C170 165, 200 122, 250 88 Z"/>
+petals.forEach(petal => {
+  petal.addEventListener('click', e => {
+    e.stopPropagation();
 
-  <!-- Outer text arc (matches petal edge) -->
-  <path id="outerTextArc"
-        d="M210 155 A 40 40 0 0 1 290 155"
-        fill="none"/>
+    titleEl.textContent = petal.dataset.title;
+    bodyEl.textContent = petal.dataset.body;
 
-  <style>
-    /* Orbit rotation ONLY */
-    .petal-orbit {
-      transform-origin: 250px 250px;
-      animation: orbitalSway var(--heart-duration) ease-in-out infinite;
-      animation-delay: 5s;
-    }
+    contentBox.classList.add('visible');
+    document.body.classList.add('calm');
+  });
+});
 
-    /* Scaling & breathing ONLY */
-    .petal-body {
-      transform-box: fill-box;
-      transform-origin: center;
-      opacity: 0;
-      animation:
-        petalOpen 4.5s ease-out forwards,
-        petalBreathe 12s ease-in-out infinite;
-    }
-
-    .p1 { animation-delay: 0s, 5s; }
-    .p2 { animation-delay: 0.6s, 5.6s; }
-    .p3 { animation-delay: 1.2s, 6.2s; }
-    .p4 { animation-delay: 1.8s, 6.8s; }
-    .p5 { animation-delay: 2.4s, 7.4s; }
-    .p6 { animation-delay: 3s, 8s; }
-    .p7 { animation-delay: 3.6s, 8.6s; }
-    .p8 { animation-delay: 4.2s, 9.2s; }
-
-    @keyframes petalOpen {
-      0%   { transform: scale(0.88); opacity: 0; }
-      60%  { transform: scale(1.04); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes petalBreathe {
-      0%   { transform: scale(1); }
-      50%  { transform: scale(1.012); }
-      100% { transform: scale(1); }
-    }
-
-    @keyframes orbitalSway {
-      0%   { transform: rotate(var(--base-angle)); }
-      20%  { transform: rotate(calc(var(--base-angle) + 0.6deg)); }
-      40%  { transform: rotate(var(--base-angle)); }
-      100% { transform: rotate(var(--base-angle)); }
-    }
-
-    /* Text style — no animation */
-    .petal-text {
-      fill: #2A0F1F;
-      font-size: 13px;
-      letter-spacing: 1.3px;
-    }
-  </style>
-
-</defs>
-
-<!-- PETALS -->
-<g filter="url(#softGlow)">
-
-<!-- TOP PETAL (UPWARD ANCHORED) -->
-<g class="petal-orbit" style="--base-angle:0deg">
-  <g class="petal-body p1">
-    <use href="#petalShape" fill="url(#petalGrad)"/>
-    <use href="#petalShape" fill="url(#petalEdge)"/>
-    <text class="petal-text">
-      <textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">
-        LOVE
-      </textPath>
-    </text>
-  </g>
-</g>
-
-<!-- OTHER PETALS -->
-<g class="petal-orbit" style="--base-angle:45deg"><g class="petal-body p2">
-  <use href="#petalShape" fill="url(#petalGrad)"/>
-  <use href="#petalShape" fill="url(#petalEdge)"/>
-  <text class="petal-text"><textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">HEALING</textPath></text>
-</g></g>
-
-<g class="petal-orbit" style="--base-angle:90deg"><g class="petal-body p3">
-  <use href="#petalShape" fill="url(#petalGrad)"/>
-  <use href="#petalShape" fill="url(#petalEdge)"/>
-  <text class="petal-text"><textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">GROWTH</textPath></text>
-</g></g>
-
-<g class="petal-orbit" style="--base-angle:135deg"><g class="petal-body p4">
-  <use href="#petalShape" fill="url(#petalGrad)"/>
-  <use href="#petalShape" fill="url(#petalEdge)"/>
-  <text class="petal-text"><textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">BALANCE</textPath></text>
-</g></g>
-
-<g class="petal-orbit" style="--base-angle:180deg"><g class="petal-body p5">
-  <use href="#petalShape" fill="url(#petalGrad)"/>
-  <use href="#petalShape" fill="url(#petalEdge)"/>
-  <text class="petal-text"><textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">TRUST</textPath></text>
-</g></g>
-
-<g class="petal-orbit" style="--base-angle:225deg"><g class="petal-body p6">
-  <use href="#petalShape" fill="url(#petalGrad)"/>
-  <use href="#petalShape" fill="url(#petalEdge)"/>
-  <text class="petal-text"><textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">GUIDANCE</textPath></text>
-</g></g>
-
-<g class="petal-orbit" style="--base-angle:270deg"><g class="petal-body p7">
-  <use href="#petalShape" fill="url(#petalGrad)"/>
-  <use href="#petalShape" fill="url(#petalEdge)"/>
-  <text class="petal-text"><textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">AWARENESS</textPath></text>
-</g></g>
-
-<g class="petal-orbit" style="--base-angle:315deg"><g class="petal-body p8">
-  <use href="#petalShape" fill="url(#petalGrad)"/>
-  <use href="#petalShape" fill="url(#petalEdge)"/>
-  <text class="petal-text"><textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">CARE</textPath></text>
-</g></g>
-
-</g>
-
-<!-- HEART -->
-<g filter="url(#softGlow)">
-  <circle cx="250" cy="250" r="74" fill="none"
-          stroke="#E6B97E" stroke-opacity="0.55" stroke-width="3"/>
-  <circle cx="250" cy="250" r="58" fill="none"
-          stroke="#E6B97E" stroke-opacity="0.28" stroke-width="2"/>
-  <image href="logo.png" x="202" y="202" width="96" height="96"/>
-</g>
-
-</svg>
+document.addEventListener('click', () => {
+  contentBox.classList.remove('visible');
+  document.body.classList.remove('calm');
+});
+</script>
 
 </body>
 </html>
