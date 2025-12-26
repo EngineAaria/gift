@@ -1,343 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Infinka GiftVerse — Prem, Not Performance</title>
+<meta charset="UTF-8">
+<title>Infinka GiftVerse — Living Core</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* =========================
-   KRISHNA–RADHA CORE PALETTE
-   ========================= */
-:root {
-  --light: #CCCBC5;   /* Shanti / Space */
-  --mid:   #70605C;   /* Earth / Maryada */
-  --dark:  #351614;   /* Prem / Depth */
-}
-
-/* =========================
-   BASE
-   ========================= */
-* {
+html, body {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  height: 100%;
+  background: #0e050b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: "Georgia", serif;
 }
 
-body {
-  font-family: "Georgia", "Times New Roman", serif;
-  background: var(--light);
-  color: var(--dark);
-  line-height: 1.9;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* =========================
-   HEADER
-   ========================= */
-header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  background: rgba(204,203,197,0.95);
-  border-bottom: 1px solid rgba(53,22,20,0.15);
-  padding: 1.6rem;
-  text-align: center;
-  z-index: 1000;
-}
-
-.logo {
-  letter-spacing: 3px;
-  font-size: 1.2rem;
-  color: var(--dark);
-  font-weight: 300;
-}
-
-/* =========================
-   MAIN
-   ========================= */
-main {
-  margin-top: 110px;
-  max-width: 1200px;
-  margin-inline: auto;
-  padding: 0 1.5rem 4rem;
-}
-
-/* =========================
-   HERO
-   ========================= */
-.hero {
-  text-align: center;
-  padding: 4rem 1rem 5rem;
-}
-
-.hero h1 {
-  font-size: 2.8rem;
-  font-weight: 300;
-  margin-bottom: 1.6rem;
-}
-
-.hero p {
-  font-size: 1.15rem;
-  color: var(--mid);
-  max-width: 640px;
-  margin-inline: auto;
-  font-style: italic;
-}
-
-/* =========================
-   NICHES
-   ========================= */
-.niches-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-  gap: 2.5rem;
-  margin-top: 3rem;
-}
-
-.niche-card {
-  background: var(--mid);
-  padding: 2.5rem 2rem;
-  border-radius: 22px;
-  color: var(--light);
-  border: 1px solid rgba(53,22,20,0.3);
-  cursor: pointer;
-  transition: transform .3s ease;
-}
-
-.niche-card:hover {
-  transform: translateY(-6px);
-}
-
-.niche-card h3 {
-  font-size: 1.5rem;
-  margin-bottom: .8rem;
-  font-weight: 300;
-}
-
-.niche-card p {
-  font-size: .95rem;
-  opacity: .9;
-}
-
-/* =========================
-   ARTICLES
-   ========================= */
-.articles-section {
-  margin-top: 6rem;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 2.3rem;
-  font-weight: 300;
-}
-
-.section-subtitle {
-  text-align: center;
-  margin-top: .6rem;
-  color: var(--mid);
-  font-style: italic;
-}
-
-.articles-grid {
-  margin-top: 3rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
-  gap: 2.5rem;
-}
-
-.article-card {
-  background: var(--mid);
-  padding: 2.4rem 2rem;
-  border-radius: 20px;
-  color: var(--light);
-  cursor: pointer;
-  transition: transform .3s ease;
-}
-
-.article-card:hover {
-  transform: translateY(-4px);
-}
-
-.article-card h4 {
-  font-size: 1.4rem;
-  margin-bottom: .8rem;
-  font-weight: 300;
-}
-
-/* =========================
-   ARTICLE PAGE
-   ========================= */
-#article-page {
-  display: none;
-}
-
-.article-content {
-  max-width: 760px;
-  margin-inline: auto;
-  padding: 4rem 1rem;
-}
-
-.article-content h2 {
-  font-size: 2.6rem;
-  margin-bottom: 2rem;
-  font-weight: 300;
-}
-
-.article-text p {
-  margin-bottom: 1.8rem;
-  color: var(--mid);
-}
-
-/* =========================
-   CTA
-   ========================= */
-.cta {
-  text-align: center;
-  margin: 5rem 0;
-}
-
-.cta-button {
-  display: inline-block;
-  padding: 1.2rem 3rem;
-  background: var(--dark);
-  color: var(--light);
-  border-radius: 50px;
-  text-decoration: none;
-  letter-spacing: 1px;
-}
-
-/* =========================
-   FOOTER
-   ========================= */
-footer {
-  background: var(--dark);
-  color: var(--light);
-  text-align: center;
-  padding: 4rem 2rem;
-}
-
-footer p {
-  opacity: .85;
-  font-style: italic;
-}
-
-/* =========================
-   RESPONSIVE
-   ========================= */
-@media (min-width: 900px) {
-  .hero h1 { font-size: 3.6rem; }
+:root {
+  --heart-duration: 12s;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">INFINKA GIFTVERSE</div>
-</header>
+<svg width="520" height="520" viewBox="0 0 500 500"
+     xmlns="http://www.w3.org/2000/svg">
 
-<main>
+<defs>
 
-<!-- HOME -->
-<div id="home">
+  <!-- Glow -->
+  <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="8" result="blur"/>
+    <feMerge>
+      <feMergeNode in="blur"/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+  </filter>
 
-<section class="hero">
-  <h1>Prem is Quiet</h1>
-  <p>
-    Gifting, like devotion, is not about display —  
-    it is about attunement.
-  </p>
-</section>
+  <!-- Petal Gradients -->
+  <radialGradient id="petalGrad" cx="50%" cy="35%" r="70%">
+    <stop offset="0%" stop-color="#F4E1CF"/>
+    <stop offset="55%" stop-color="#E8B8A8"/>
+    <stop offset="100%" stop-color="#C97A86"/>
+  </radialGradient>
 
-<section class="niches-grid">
-  <div class="niche-card">
-    <h3>Radha Bhav</h3>
-    <p>Gifts that listen before they speak.</p>
-  </div>
-  <div class="niche-card">
-    <h3>Krishna Maryada</h3>
-    <p>When restraint itself becomes affection.</p>
-  </div>
-  <div class="niche-card">
-    <h3>Leela of Moments</h3>
-    <p>Timing, silence, and emotional rhythm.</p>
-  </div>
-</section>
+  <radialGradient id="petalEdge">
+    <stop offset="60%" stop-color="#000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#000" stop-opacity="0.18"/>
+  </radialGradient>
 
-<section class="articles-section">
-  <h2 class="section-title">Reflections</h2>
-  <p class="section-subtitle">Bhav before object</p>
+  <!-- Petal Shape -->
+  <path id="petalShape" d="
+    M250 88
+    C300 122, 330 165, 320 205
+    C310 235, 280 255, 250 265
+    C220 255, 190 235, 180 205
+    C170 165, 200 122, 250 88 Z"/>
 
-  <div class="articles-grid">
-    <div class="article-card" onclick="openArticle('a')">
-      <h4>Thoughtfulness Is Not Loud</h4>
-      <p>Why the most loving gifts are almost invisible.</p>
-    </div>
-    <div class="article-card" onclick="openArticle('b')">
-      <h4>Prem Without Possession</h4>
-      <p>Giving without claiming gratitude.</p>
-    </div>
-  </div>
-</section>
+  <!-- Outer text arc (matches petal edge) -->
+  <path id="outerTextArc"
+        d="M210 155 A 40 40 0 0 1 290 155"
+        fill="none"/>
 
-<div class="cta">
-  <a class="cta-button" href="#">Seek Gentle Guidance</a>
-</div>
+  <style>
+    /* Orbit rotation ONLY */
+    .petal-orbit {
+      transform-origin: 250px 250px;
+      animation: orbitalSway var(--heart-duration) ease-in-out infinite;
+      animation-delay: 5s;
+    }
 
-</div>
+    /* Scaling & breathing ONLY */
+    .petal-body {
+      transform-box: fill-box;
+      transform-origin: center;
+      opacity: 0;
+      animation:
+        petalOpen 4.5s ease-out forwards,
+        petalBreathe 12s ease-in-out infinite;
+    }
 
-<!-- ARTICLE -->
-<div id="article-page">
-  <div class="article-content">
-    <h2 id="article-title"></h2>
-    <div class="article-text" id="article-body"></div>
-    <div class="cta">
-      <a class="cta-button" onclick="goHome()">Return</a>
-    </div>
-  </div>
-</div>
+    .p1 { animation-delay: 0s, 5s; }
+    .p2 { animation-delay: 0.6s, 5.6s; }
+    .p3 { animation-delay: 1.2s, 6.2s; }
+    .p4 { animation-delay: 1.8s, 6.8s; }
+    .p5 { animation-delay: 2.4s, 7.4s; }
+    .p6 { animation-delay: 3s, 8s; }
+    .p7 { animation-delay: 3.6s, 8.6s; }
+    .p8 { animation-delay: 4.2s, 9.2s; }
 
-</main>
+    @keyframes petalOpen {
+      0%   { transform: scale(0.88); opacity: 0; }
+      60%  { transform: scale(1.04); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
 
-<footer>
-  <p>
-    Like Radha’s love — unseen, unwavering, complete.
-  </p>
-</footer>
+    @keyframes petalBreathe {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.012); }
+      100% { transform: scale(1); }
+    }
 
-<script>
-const articles = {
-  a: {
-    title: "Thoughtfulness Is Not Loud",
-    body: `
-      <p>Radha did not announce her love. It was felt.</p>
-      <p>A thoughtful gift carries the same quality — quiet, exact, inevitable.</p>
-    `
-  },
-  b: {
-    title: "Prem Without Possession",
-    body: `
-      <p>True giving does not bind.</p>
-      <p>It offers, and steps back.</p>
-    `
-  }
-};
+    @keyframes orbitalSway {
+      0%   { transform: rotate(var(--base-angle)); }
+      20%  { transform: rotate(calc(var(--base-angle) + 0.6deg)); }
+      40%  { transform: rotate(var(--base-angle)); }
+      100% { transform: rotate(var(--base-angle)); }
+    }
 
-function openArticle(k) {
-  home.style.display = "none";
-  article-page.style.display = "block";
-  article-title.innerText = articles[k].title;
-  article-body.innerHTML = articles[k].body;
-  window.scrollTo(0,0);
-}
+    /* Text style — no animation */
+    .petal-text {
+      fill: #2A0F1F;
+      font-size: 13px;
+      letter-spacing: 1.3px;
+    }
+  </style>
 
-function goHome() {
-  article-page.style.display = "none";
-  home.style.display = "block";
-  window.scrollTo(0,0);
-}
-</script>
+</defs>
+
+<!-- PETALS -->
+<g filter="url(#softGlow)">
+
+<!-- TOP PETAL (UPWARD ANCHORED) -->
+<g class="petal-orbit" style="--base-angle:0deg">
+  <g class="petal-body p1">
+    <use href="#petalShape" fill="url(#petalGrad)"/>
+    <use href="#petalShape" fill="url(#petalEdge)"/>
+    <text class="petal-text">
+      <textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">
+        LOVE
+      </textPath>
+    </text>
+  </g>
+</g>
+
+<!-- OTHER PETALS -->
+<g class="petal-orbit" style="--base-angle:45deg"><g class="petal-body p2">
+  <use href="#petalShape" fill="url(#petalGrad)"/>
+  <use href="#petalShape" fill="url(#petalEdge)"/>
+  <text class="petal-text"><textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">HEALING</textPath></text>
+</g></g>
+
+<g class="petal-orbit" style="--base-angle:90deg"><g class="petal-body p3">
+  <use href="#petalShape" fill="url(#petalGrad)"/>
+  <use href="#petalShape" fill="url(#petalEdge)"/>
+  <text class="petal-text"><textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">GROWTH</textPath></text>
+</g></g>
+
+<g class="petal-orbit" style="--base-angle:135deg"><g class="petal-body p4">
+  <use href="#petalShape" fill="url(#petalGrad)"/>
+  <use href="#petalShape" fill="url(#petalEdge)"/>
+  <text class="petal-text"><textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">BALANCE</textPath></text>
+</g></g>
+
+<g class="petal-orbit" style="--base-angle:180deg"><g class="petal-body p5">
+  <use href="#petalShape" fill="url(#petalGrad)"/>
+  <use href="#petalShape" fill="url(#petalEdge)"/>
+  <text class="petal-text"><textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">TRUST</textPath></text>
+</g></g>
+
+<g class="petal-orbit" style="--base-angle:225deg"><g class="petal-body p6">
+  <use href="#petalShape" fill="url(#petalGrad)"/>
+  <use href="#petalShape" fill="url(#petalEdge)"/>
+  <text class="petal-text"><textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">GUIDANCE</textPath></text>
+</g></g>
+
+<g class="petal-orbit" style="--base-angle:270deg"><g class="petal-body p7">
+  <use href="#petalShape" fill="url(#petalGrad)"/>
+  <use href="#petalShape" fill="url(#petalEdge)"/>
+  <text class="petal-text"><textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">AWARENESS</textPath></text>
+</g></g>
+
+<g class="petal-orbit" style="--base-angle:315deg"><g class="petal-body p8">
+  <use href="#petalShape" fill="url(#petalGrad)"/>
+  <use href="#petalShape" fill="url(#petalEdge)"/>
+  <text class="petal-text"><textPath href="#outerTextArc" startOffset="50%" text-anchor="middle">CARE</textPath></text>
+</g></g>
+
+</g>
+
+<!-- HEART -->
+<g filter="url(#softGlow)">
+  <circle cx="250" cy="250" r="74" fill="none"
+          stroke="#E6B97E" stroke-opacity="0.55" stroke-width="3"/>
+  <circle cx="250" cy="250" r="58" fill="none"
+          stroke="#E6B97E" stroke-opacity="0.28" stroke-width="2"/>
+  <image href="logo.png" x="202" y="202" width="96" height="96"/>
+</g>
+
+</svg>
 
 </body>
 </html>
